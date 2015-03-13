@@ -1,0 +1,26 @@
+
+<div>
+    <a href class="btn btn-primary" ng-click="power()"><i class="fa fa-power-off"></i>&nbsp;</a>
+</div>
+<div class="btn-group">
+   <a href class="btn btn-primary" ng-click="volumeUp()"><i class="fa fa-volume-up"></i>&nbsp;</a>
+   <a href class="btn btn-primary" ng-click="volumeDown()"><i class="fa fa-volume-down"></i>&nbsp;</a>
+   <a href class="btn btn-primary" ng-click="volumeOff()"><i class="fa fa-volume-off"></i>&nbsp;</a>
+</div>
+
+<div class="btn-group">
+   <a href class="btn btn-primary" ng-click="channel('ylex')">YleX</a>
+   <a href class="btn btn-primary" ng-click="channel('rock')">Radio rock</a>
+   <a href class="btn btn-primary" ng-click="channel('loop')">Loop</a>
+    <a href class="btn btn-primary" ng-click="channel('basso')">Basso</a>
+    <a href class="btn btn-primary" ng-click="channel('pause')"><i class="fa fa-pause"></i>&nbsp;</a>
+</div>
+
+
+<div>
+    <iframe id="frame" width="0" height="0" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" style="hidden" ng-src="{{source}}"></iframe>
+</div>
+
+<div class="range-slider">
+    <div id="slider-range" style="width:20%">
+</div>

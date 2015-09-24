@@ -91,6 +91,23 @@ app.config(function($stateProvider, $urlRouterProvider) {
                  $scope.source = 'null';
               }
           }
+          
+
+          $scope.lightOn = function() {
+              $http({
+                  method:'GET',
+                  url:'/light/mode/on'
+              }).success(function(response) { 
+              });
+          }
+	   $scope.lightOff = function() {
+              $http({
+                  method:'GET',
+                  url:'/light/mode/off'
+              }).success(function(response) {
+              });
+          }
+
       }
     });
 });

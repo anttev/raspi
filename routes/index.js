@@ -1,16 +1,42 @@
-var exec = require('child_process').exec;
+var exec = require('child_process').exec;//käytä execfile
+var gcm = require('node-gcm');
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
-    app.get('/', function(req, res) {
+    app.get('/', isLoggedIn, function(req, res) {
         res.render('index');   
     });
     
-    app.get('/partials/main.html', function(req, res) {
+    app.get('/login', function(req, res) {
+        res.render('login', { message: req.flash('loginMessage') });   
+    });
+    
+    app.post('/login', passport.authenticate('local', {
+            successRedirect : '/', // redirect to the secure profile section
+            failureRedirect : '/login', // redirect back to the signup page if there is an error
+            failureFlash : true // allow flash messages
+        }));;
+    
+    app.get('/partials/main.html', isLoggedIn, function(req, res) {
         res.render('main');
     });
     
-    app.get('/tuner/volume/:status', function(req, res) {
+    app.get('/tuner/volume/:status', isLoggedIn, function(req, res) {
+        
+        var message = new gcm.Message();
+
+        message.addData('key1', 'msg1');
+
+        var regIds = ['fsaXVlF4YB0:APA91bH3vuFt9I8IYoIAr87Lv3O130jAYQVCevt14meqjieMZnhQrzV2Jj91GFFnf9u2GnJuxEl0H8bhg9YRYFQNLPBfkUXnHo4QRacEPZne_1CNbRJNxlwMoFcUuxefKYWGvfsf7HlR'];
+
+        // Set up the sender with you API key
+        var sender = new gcm.Sender('AIzaSyCLveIqP3Qn15jD6dBaXJW2llzuz-tpcJs');
+
+// ... or retrying a specific number of times (10)
+        sender.send(message, { registrationIds: regIds }, 3, function (err, result) {
+          if(err) console.error(err);
+          else    console.log(result);
+        });
         if (req.params.status === 'up') {
             exec('irsend SEND_ONCE SONY_RM-AAU014 BTN_VOLUME_UP --count 2', function() {});
         }else if (req.params.status === 'down') {
@@ -21,7 +47,7 @@ module.exports = function(app) {
         res.send(req.params.status);   
     });
     
-    app.get('/tuner/mode/:status', function(req, res) {
+    app.get('/tuner/mode/:status', isLoggedIn, function(req, res) {
         if (req.params.status === 'tuner') {
             exec('irsend SEND_ONCE SONY_RM-AAU014 BTN_TUNER --count 2', function() {});
         } else if (req.params.status === 'sacd'){
@@ -32,8 +58,25 @@ module.exports = function(app) {
         res.send(req.params.status);   
     });
     
-    app.get('/tuner/:status', function(req, res) {
-            exec('irsend SEND_ONCE SONY_RM-AAU014 BTN_POWER --count 2', function() {});
+    app.get('/tuner/:status', isLoggedIn, function(req, res) {
+        exec('irsend SEND_ONCE SONY_RM-AAU014 BTN_POWER --count 2', function() {});
     });
     
+    app.get('/light/mode/:status', isLoggedIn, function(req, res) {
+       if(req.params.status === 'on') {
+           exec('sudo ~/433Utils/RPi_utils/codesend 1135932')
+       }  
+       else if(req.params.status === 'off') {
+           exec('sudo ~/433Utils/RPi_utils/codesend 1135923')
+       }
+       res.send(req.params.status);       
+    });
+    
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+
+    res.redirect('/login');
+}
+
 }

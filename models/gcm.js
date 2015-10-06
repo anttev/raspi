@@ -15,12 +15,12 @@ sender.send(message, { registrationIds: registrationIds }, 3, function (err, res
   else    console.log(result);
 });
 
-function test(){
+function test(token){
     var message = new gcm.Message();
 
-        message.addData('key1', 'msg1');
+        message.addData('message', 'raspb');
 
-        var regIds = ['629599979753'];
+        var regIds = [token];
 
         // Set up the sender with you API key
         var sender = new gcm.Sender('AIzaSyCLveIqP3Qn15jD6dBaXJW2llzuz-tpcJs');

@@ -7,8 +7,38 @@ module.exports = function(app, passport) {
         res.render('index');   
     });
     
-    app.get('/login', function(req, res) {
+     app.get('/login', function(req, res) {
         res.render('login', { message: req.flash('loginMessage') });   
+    });
+    
+    
+    app.post('/test', function(req, res) {
+        console.log("TOKEN:" + req.body.token);
+        var message = new gcm.Message();
+        var token = req.body.token;
+        message.addData('data', 'raspi kutsuu');
+
+        var regIds = [token];
+
+        // Set up the sender with you API key
+        var sender = new gcm.Sender('AIzaSyCLveIqP3Qn15jD6dBaXJW2llzuz-tpcJs');
+
+// ... or retrying a specific number of times (10)
+        sender.send(message, { registrationIds: regIds }, 3, function (err, result) {
+          if(err) console.error(err);
+          else    console.log(result);
+        });
+        res.render('login', { message: req.flash('loginMessage') });   
+    });
+    
+    app.post('/testGPIO', function(req, res) {
+        var Gpio = require('onoff').Gpio,
+        led = new Gpio(14, 'out'),
+        button = new Gpio(4, 'in', 'both');
+ 
+        button.watch(function(err, value) {
+          led.writeSync(value);
+        });
     });
     
     app.post('/login', passport.authenticate('local', {
@@ -22,21 +52,6 @@ module.exports = function(app, passport) {
     });
     
     app.get('/tuner/volume/:status', isLoggedIn, function(req, res) {
-        
-        var message = new gcm.Message();
-
-        message.addData('key1', 'msg1');
-
-        var regIds = ['fsaXVlF4YB0:APA91bH3vuFt9I8IYoIAr87Lv3O130jAYQVCevt14meqjieMZnhQrzV2Jj91GFFnf9u2GnJuxEl0H8bhg9YRYFQNLPBfkUXnHo4QRacEPZne_1CNbRJNxlwMoFcUuxefKYWGvfsf7HlR'];
-
-        // Set up the sender with you API key
-        var sender = new gcm.Sender('AIzaSyCLveIqP3Qn15jD6dBaXJW2llzuz-tpcJs');
-
-// ... or retrying a specific number of times (10)
-        sender.send(message, { registrationIds: regIds }, 3, function (err, result) {
-          if(err) console.error(err);
-          else    console.log(result);
-        });
         if (req.params.status === 'up') {
             exec('irsend SEND_ONCE SONY_RM-AAU014 BTN_VOLUME_UP --count 2', function() {});
         }else if (req.params.status === 'down') {

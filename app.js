@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var passport = require('passport');
 var flash = require('connect-flash');
-
+var onoff = require('onoff');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/rasp');
@@ -23,21 +23,22 @@ app.set('view engine', 'html');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/vendor', express.static(path.join(__dirname, 'bower_components')));
 
 
 // Configuring Passport
-var passport = require('passport');
+require('./config/passport')(passport);
 var expressSession = require('express-session');
 app.use(expressSession({secret: 'mySecretKey'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-require('./config/passport')(passport);
-// mongoose
+app.use(onoff);
+
+
 
 
 require('./routes')(app, passport);

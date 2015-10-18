@@ -1,6 +1,7 @@
 var exec = require('child_process').exec;//käytä execfile
 var gcm = require('node-gcm');
 
+
 module.exports = function(app, passport) {
 
     app.get('/', isLoggedIn, function(req, res) {
@@ -31,16 +32,7 @@ module.exports = function(app, passport) {
         res.render('login', { message: req.flash('loginMessage') });   
     });
     
-    app.post('/testGPIO', function(req, res) {
-        var Gpio = require('onoff').Gpio,
-        led = new Gpio(14, 'out'),
-        button = new Gpio(4, 'in', 'both');
- 
-        button.watch(function(err, value) {
-          led.writeSync(value);
-        });
-    });
-    
+  
     app.post('/login', passport.authenticate('local', {
             successRedirect : '/', // redirect to the secure profile section
             failureRedirect : '/login', // redirect back to the signup page if there is an error

@@ -1,5 +1,6 @@
 var exec = require('child_process').exec;//käytä execfile
 var gcm = require('node-gcm');
+var Token = require('../models/token');
 
 module.exports = function(app, passport) {
 
@@ -14,22 +15,17 @@ module.exports = function(app, passport) {
     
     app.post('/test', function(req, res) {
         console.log("TOKEN:" + req.body.token);
-        var message = new gcm.Message();
-        var token = req.body.token;
-        message.addData('data', 'raspi kutsuu');
-
-        var regIds = [token];
-
-        // Set up the sender with you API key
-        var sender = new gcm.Sender('AIzaSyCLveIqP3Qn15jD6dBaXJW2llzuz-tpcJs');
-
-// ... or retrying a specific number of times (10)
-        sender.send(message, { registrationIds: regIds }, 3, function (err, result) {
-          if(err) console.error(err);
-          else    console.log(result);
-        });
-        res.render('login', { message: req.flash('loginMessage') });   
-    });
+        var tokenMessage = req.body.token;
+	var newToken = new Token();
+        newToken.token = tokenMessage;
+        newToken.save(function(err){
+        if(err) {
+            console.log(err);
+        }
+            console.log('done');
+	    res.send('kikki hiiri');
+        });   
+ });
     
     app.post('/testGPIO', function(req, res) {
         var Gpio = require('onoff').Gpio,

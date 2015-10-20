@@ -24,13 +24,21 @@ module.exports = {
         });
     },
 
-    getAlarm: function () {
+    getAlarm: function (cb) {
         crontab.load(function (err, cron) {
             var jobs = cron.jobs({
                 command: '~/shuteTest.py',
                 comment: /alarm/
             });
-            console.log(jobs);
+            if (jobs.length > 0) {
+                return cb({
+                    time: jobs[0].hour + ':' + jobs[0].minute,
+                    status: true
+                });
+            }
+            return cb({
+                status: false
+            });
         });
     }
 }

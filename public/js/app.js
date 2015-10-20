@@ -103,8 +103,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                         method: 'POST',
                         url: '/alarm/time',
                         data: {
-                     		time: document.getElementById('pick-a-time').value
-		   	}
+                            time: document.getElementById('pick-a-time').value
+                        }
                     }).success(function (response) {});
                 }
                 $scope.updateAlarm = function () {
@@ -122,7 +122,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     method: 'GET',
                     url: '/alarmstatus/'
                 }).success(function (response) {
-                    $scope.alarmStatus = response.alarmStatus;
+                    $scope.alarmStatus = response.status;
+                    $scope.time = response.time;
                 });
             }
         });

@@ -78,7 +78,7 @@ module.exports = function (app, passport) {
 
     app.post('/alarm/time', isLoggedIn, function (req, res) {
         console.log(req.body);
-	crontab.setAlarm(req.body.time);
+        crontab.setAlarm(req.body.time);
         res.send('ok');
     });
     app.get('/alarm/off', isLoggedIn, function (req, res) {
@@ -86,7 +86,9 @@ module.exports = function (app, passport) {
         res.send('ok');
     });
     app.get('/alarmstatus', isLoggedIn, function () {
-        crontab.getAlarm();
+        crontab.getAlarm(function (alarm) {
+            res.json(alarm);
+        });
     });
 
     function isLoggedIn(req, res, next) {

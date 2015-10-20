@@ -85,7 +85,7 @@ module.exports = function (app, passport) {
         crontab.removeAlarm();
         res.send('ok');
     });
-    app.get('/alarmstatus', isLoggedIn, function () {
+    app.get('/alarmstatus', isLoggedIn, function (req, res) {
         crontab.getAlarm(function (alarm) {
             res.json(alarm);
         });

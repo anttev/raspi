@@ -1,41 +1,47 @@
 <html ng-app="myApp">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-    <script src="/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-    <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/vendor/angular/angular.min.js"></script>
-    <script src="/vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="/vendor/nouislider/distribute/jquery.nouislider.min.js"></script>
-      <link rel="stylesheet" href="/vendor/nouislider/distribute/jquery.nouislider.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.0.2/nouislider.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.0.2/nouislider.min.js"></script>
+    <script src="/js/clock.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/clock.css">
     <script src="/js/app.js"></script>
-         <script>
-//js code
-$(document).ready(function(){
-   $(".button-collapse").sideNav();
-   //$('.collapsible').collapsible();
-});
-</script>
-  </head>
+    <script>
+        //js code
+        $(document).ready(function() {
+            $(".button-collapse").sideNav();
+            //$('.collapsible').collapsible();
+        });
+
+    </script>
+</head>
+
 <body>
     <nav>
-  <ul class="right hide-on-med-and-down">
-    <li><a href="#!">First Sidebar Link</a></li>
-    <li><a href="#!">Second Sidebar Link</a></li>
-  </ul>
-  <ul id="slide-out" class="side-nav">
-    <li><a href="#!">First Sidebar Link</a></li>
-    <li><a href="#!">Second Sidebar Link</a></li>
-  </ul>
-  <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-</nav>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#!">Change password</a></li>
+            <li><a href="#!">Shutdown server</a></li>
+            <li><a href="#!">Shutdown server</a></li>
+        </ul>
+        <ul id="slide-out" class="side-nav">
+            <li><a href="#!">Change password</a></li>
+            <li><a href="#!">Shutdown server</a></li>
+            <li><a href="#!">Shutdown server</a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+    </nav>
     <div ui-view />
 </body>
-</html>
 
+</html>

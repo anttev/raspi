@@ -1,38 +1,116 @@
-
-<div class="container">
-    <div class="row" >
-        <div class="col s1">
-            <a href class="btn btn-primary" ng-click="power()"><i class="fa fa-power-off"></i>&nbsp;</a>
+<div class="space-between-menu"></div>
+<div class="container about-content">
+    <h3>Music</h3>
+    <div class="row">
+        <div class="col s6 m6">
+            <a href class="btn btn-medium" ng-click="power()"><i class="fa fa-power-off"></i>&nbsp;</a>
+            <div class="space"></div>
+            <a href class="btn btn-medium" ng-click="volumeUp()"><i class="fa fa-volume-up"></i>&nbsp;</a>
+            <div class="space"></div>
+            <a href class="btn btn-medium" ng-click="volumeDown()"><i class="fa fa-volume-down"></i>&nbsp;</a>
+            <div class="space"></div>
+            <a href class="btn btn-medium" ng-click="volumeOff()"><i class="fa fa-volume-off"></i>&nbsp;</a>
+            <div class="space"></div>
         </div>
     </div>
-    <div class="row" >
-        <div class="col s1">
-            <a href class="btn btn-primary" ng-click="volumeUp()"><i class="fa fa-volume-up"></i>&nbsp;</a>
+    <div class="row">
+        <div class="col s6 m6">
+            <a href class="btn btn-medium" ng-click="channel('ylex')">YleX</a>
+            <div class="space"></div>
+            <a href class="btn btn-medium" ng-click="channel('rock')">Rock</a>
+            <div class="space"></div>
+            <a href class="btn btn-medium" ng-click="channel('loop')">Loop</a>
+            <div class="space"></div>
+            <a href class="btn btn-medium" ng-click="channel('basso')">Basso</a>
+            <div class="space"></div>
         </div>
-        <div class="col s1">
-            <a href class="btn btn-primary" ng-click="volumeDown()"><i class="fa fa-volume-down"></i>&nbsp;</a>
+    </div>
+    <div class="row">
+        <div class="col s6 m6">
+            <a href class="btn btn-primary" ng-click="channel('pause')"><i class="fa fa-pause"></i>&nbsp;</a>
+            <div class="space"></div>
+            <a href class="btn btn-primary" ng-click="channel('sat')"><i class="fa fa-pause"></i>&nbsp;</a>
+            <div class="space"></div>
+            <a href class="btn btn-primary" ng-click="channel('sacd')"><i class="fa fa-pause"></i>&nbsp;</a>
+            <div class="space"></div>
+            <a href class="btn btn-primary" ng-click="channel('tv')"><i class="fa fa-pause"></i>&nbsp;</a>
+            <div class="space"></div>
         </div>
-        <div class="col s1">
-            <a href class="btn btn-primary" ng-click="volumeOff()"><i class="fa fa-volume-off"></i>&nbsp;</a>
-        </div>
+    </div>
+</div>
+<div class="space-between-menu"></div>
+<div class="container about-content">
+    <h3>Lights</h3>
+    <div class="row">
+        <a href class="btn btn-primary" ng-click="lightOn()"><i class="fa fa-lightbulb-o"></i></a>
+        <a href class="btn btn-primary" ng-click="lightOff()"><i class="fa fa-lightbulb-o"></i></a>
+        <a href class="btn btn-primary" ng-click="lightOn()"><i class="fa fa-lightbulb-o"></i></a>
+        <a href class="btn btn-primary" ng-click="lightOff()"><i class="fa fa-lightbulb-o"></i></a>
     </div>
 </div>
 
 
-<div class="btn-group">
-   <a href class="btn btn-primary" ng-click="lightOn()">on</a>
-   <a href class="btn btn-primary" ng-click="lightOff()">off</a>
+
+<div class="space-between-menu"></div>
+<div class="container about-content">
+    <h3>Alarm</h3>
+    <div class="row">
+        <div class="col s6 m6">
+            <div class="switch" id="switch">
+                <label>
+                    Off
+                    <input type="checkbox" ng-model="alarmStatus" ng-change="updateAlarm()" name="checkbox">
+                    <span class="lever"></span> On
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s3 m3">
+            <input id="pick-a-time" type="date" ng-blur="updateTime()" ng-disabled="!alarmStatus" ng-model="time" name="time"></input>
+            <script>
+                var ua = navigator.userAgent.toLowerCase();
+                var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+                if (!isAndroid) {
+                    $('#pick-a-time').lolliclock({
+                        autoclose: true,
+                        hour24: true
+                    });
+                }
+
+            </script>
+        </div>
+    </div>
 </div>
-
-<div class="btn-group">
-   <a href class="btn btn-primary" ng-click="channel('ylex')">YleX</a>
-   <a href class="btn btn-primary" ng-click="channel('rock')">Radio rock</a>
-   <a href class="btn btn-primary" ng-click="channel('loop')">Loop</a>
-   <a href class="btn btn-primary" ng-click="channel('basso')">Basso</a>
-   <a href class="btn btn-primary" ng-click="channel('pause')"><i class="fa fa-pause"></i>&nbsp;</a>
-</div>
-
-
-<div class="range-slider">
+<div class="space-between-menu"></div>
+<!--div class="range-slider">
     <div id="slider-range" style="width:20%">
-</div>
+    </div>
+<script>
+  $('#switch').change(function() {
+        if ($('#switch').is(':checked')) {
+            console.log('on');
+        } else {
+            console.log('off');
+            $('#time').click();
+        }
+    });
+
+</script>-->
+<!--script>
+    $(document).ready(function() {
+        $('#switch').change(function() {
+            if ($("#switch [name='checkbox']").is(':checked')) {
+                console.log('on');
+            } else {
+                console.log('off');
+                $("#time [name='time']").focus();
+
+            }
+        });
+        $("#time [name='time']").focusout(function() {
+            console.log('focus');
+        });
+    });
+
+</script-->

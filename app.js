@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var passport = require('passport');
 var flash = require('connect-flash');
-//var onoff = require('onoff');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/rasp');
@@ -26,7 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/vendor', express.static(path.join(__dirname, 'bower_components')));
 
 
 // Configuring Passport
@@ -37,9 +35,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 //app.use(onoff);
-
-
-
 
 require('./routes')(app, passport);
 

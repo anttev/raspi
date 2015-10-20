@@ -103,7 +103,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                         method: 'POST',
                         url: '/alarm/time',
                         data: {
-                            time: $scope.time
+                            time: $scope.time || $('#pick-a-time').value
                         }
                     }).success(function (response) {});
                 }

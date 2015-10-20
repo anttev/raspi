@@ -97,6 +97,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                         method: 'GET',
                         url: '/light/mode/off'
                     }).success(function (response) {});
+		     document.getElementById('pick-a-time').value = '';
                 }
                 $scope.updateTime = function () {
                     $http({
@@ -123,7 +124,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     url: '/alarmstatus/'
                 }).success(function (response) {
                     $scope.alarmStatus = response.status;
-                    $scope.time = response.time;
+                    document.getElementById('pick-a-time').value = response.time || '';
                 });
             }
         });

@@ -32,7 +32,7 @@ module.exports = {
             });
             if (jobs.length > 0) {
                 return cb({
-                    time: jobs[0].hour + ':' + jobs[0].minute,
+                    time: jobs[0].hour() + ':' + jobs[0].minute(),
                     status: true
                 });
             }

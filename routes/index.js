@@ -2,7 +2,7 @@ var exec = require('child_process').exec; //käytä execfile
 var gcm = require('node-gcm');
 var Token = require('../models/token');
 var crontab = require('../config/crontab');
-
+var temp = require('../config/temp');
 module.exports = function (app, passport) {
 
     app.get('/', isLoggedIn, function (req, res) {
@@ -90,6 +90,12 @@ module.exports = function (app, passport) {
             res.json(alarm);
         });
     });
+app.get('/temp', isLoggedIn, function (req, res) {
+            temp(function(value){
+		res.json({temp: value});
+        });
+    });
+
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
